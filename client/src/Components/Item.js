@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { store } from "../configure-store";
 import {
   LOADING_FALSE,
@@ -27,16 +25,6 @@ const Item = ({ title, completed, timestamp, id }) => {
 
     dispatch({ type: LOADING_FALSE });
   };
-
-  useEffect(() => {
-    if (roomNo === null) Navigate("/");
-
-    socket.on("changed_list", (data) => {
-      dispatch({ type: LOADING_TRUE });
-      dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
-      dispatch({ type: LOADING_FALSE });
-    });
-  }, [dispatch, socket, roomNo]);
 
   return (
     <div className="card m-1">
