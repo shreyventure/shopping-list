@@ -21,8 +21,9 @@ io.on("connection", (socket) => {
     socket.join(data);
   });
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
+  socket.on("changed_list", (data) => {
+    console.log(data);
+    socket.to(data.roomNo).emit("changed_list", data);
   });
 });
 

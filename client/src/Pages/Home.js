@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div className="text-center d-flex justify-content-around align-items-center flex-column m-auto">
       <h1>Enter Room No.</h1>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="number"
           name="roomno"
@@ -36,11 +36,7 @@ const Home = () => {
           value={roomNo}
           onChange={(e) => setRoomNo(e.target.value)}
         />
-        <button
-          type="submit"
-          className="btn btn-success my-3"
-          onClick={handleSubmit}
-        >
+        <button type="submit" className="btn btn-success my-3">
           Submit
         </button>
       </form>
