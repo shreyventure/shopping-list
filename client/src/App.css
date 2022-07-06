@@ -3,3 +3,12 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.hover-pointer:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.line-through {
+  text-decoration: line-through;
+}

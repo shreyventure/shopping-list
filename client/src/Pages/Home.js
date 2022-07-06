@@ -9,10 +9,11 @@ import {
 } from "../Shopping-reducers/reducer";
 
 const Home = () => {
-  const [roomNo, setRoomNo] = useState(0);
+  const [roomNo, setRoomNo] = useState("");
 
   const dispatch = useDispatch();
-  const { socket } = store.getState();
+  const state = store.getState();
+  const socket = state.socket;
 
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ const Home = () => {
           className="m-auto form-control text-center"
           value={roomNo}
           onChange={(e) => setRoomNo(e.target.value)}
+          placeholder="Room Number"
         />
         <button type="submit" className="btn btn-success my-3">
           Submit

@@ -31,17 +31,33 @@ const Shopping = () => {
     e.preventDefault();
     dispatch({ type: LOADING_TRUE });
 
+    let today = new Date();
+    let timestamp =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear() +
+      " @ " +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
+
     const newList = [
       {
         title: newItem,
         completed: false,
         id: Date.now(),
+        timestamp,
       },
       ...shoppingList,
     ];
 
     dispatch({ type: SET_SHOPPING_LIST, value: newList });
     socket.emit("changed_list", { newList, roomNo });
+    setNewItem("");
 
     dispatch({ type: LOADING_FALSE });
   };
@@ -62,7 +78,7 @@ const Shopping = () => {
             setNewItem(e.target.value);
           }}
         />
-        <button type="submit" className="btn btn-success mx-1">
+        <button type="submit" className="btn btn-success mx-1 d-flex">
           Add
         </button>
       </form>
@@ -71,6 +87,8 @@ const Shopping = () => {
           key={item.id + "_" + String(idx)}
           title={item.title}
           completed={item.completed}
+          timestamp={item.timestamp}
+          id={item.id}
         />
       ))}
     </div>
