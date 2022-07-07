@@ -12,3 +12,7 @@
 .line-through {
   text-decoration: line-through;
 }
+
+.decor-none {
+  text-decoration: none;
+}
