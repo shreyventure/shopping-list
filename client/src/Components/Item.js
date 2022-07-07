@@ -6,9 +6,9 @@ import {
   SET_SHOPPING_LIST,
 } from "../Shopping-reducers/reducer";
 
-const Item = ({ title, completed, timestamp, id }) => {
+const Item = ({ title, completed, timestamp, id, completedBy }) => {
   const dispatch = useDispatch();
-  const { socket, roomNo, shoppingList } = store.getState();
+  const { socket, roomNo, shoppingList, name } = store.getState();
 
   const handleDelete = () => {};
 
@@ -18,7 +18,11 @@ const Item = ({ title, completed, timestamp, id }) => {
 
     const newList = [...shoppingList];
     newList.forEach((item, idx) => {
-      if (item.id === id) item.completed = !item.completed;
+      if (item.id === id) {
+        item.completed = !item.completed;
+        item.completedBy = name;
+        return;
+      }
     });
     dispatch({ type: SET_SHOPPING_LIST, value: newList });
     socket.emit("changed_list", { newList, roomNo });
@@ -48,10 +52,11 @@ const Item = ({ title, completed, timestamp, id }) => {
         </div>
       </div>
       <div
-        className="card-footer text-muted font-weight-lighter"
+        className="card-footer text-muted font-weight-lighter d-flex justify-content-between"
         style={{ fontSize: "12px" }}
       >
-        {timestamp}
+        <div>{timestamp}</div>
+        {completed === true ? <div>{completedBy}</div> : null}
       </div>
     </div>
   );
