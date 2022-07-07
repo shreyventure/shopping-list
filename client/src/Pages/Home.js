@@ -64,7 +64,13 @@ const Home = () => {
           placeholder="Name"
         />
         <button type="submit" className="btn btn-success my-3">
-          Submit
+          {state.loading === false ? (
+            "Submit"
+          ) : (
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
         </button>
       </form>
     </div>

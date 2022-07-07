@@ -15,14 +15,13 @@ const Shopping = () => {
 
   const [newItem, setNewItem] = useState("");
   const dispatch = useDispatch();
-  const { shoppingList, socket, roomNo } = store.getState();
+  const { shoppingList, socket, roomNo, loading } = store.getState();
 
   useEffect(() => {
     if (state.roomNo === null) Navigate("/");
 
     socket.on("send_data", (data) => {
       dispatch({ type: LOADING_TRUE });
-      console.log(data);
       if (data.newList)
         dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
       dispatch({ type: LOADING_FALSE });
@@ -92,6 +91,11 @@ const Shopping = () => {
           Add
         </button>
       </form>
+      {loading === true ? (
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      ) : null}
       {shoppingList.map((item, idx) => (
         <Item
           key={item.id + "_" + String(idx)}
@@ -100,6 +104,7 @@ const Shopping = () => {
           timestamp={item.timestamp}
           id={item.id}
           completedBy={item.completedBy}
+          completedTime={item.completedTime}
         />
       ))}
     </div>

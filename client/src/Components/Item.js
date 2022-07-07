@@ -6,26 +6,58 @@ import {
   SET_SHOPPING_LIST,
 } from "../Shopping-reducers/reducer";
 
-const Item = ({ title, completed, timestamp, id, completedBy }) => {
+const Item = ({
+  title,
+  completed,
+  timestamp,
+  id,
+  completedBy,
+  completedTime,
+}) => {
   const dispatch = useDispatch();
   const { socket, roomNo, shoppingList, name } = store.getState();
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch({ type: LOADING_TRUE });
+    let newList = [...shoppingList];
+    newList = newList.filter((item, idx) => item.id !== id);
+    dispatch({ type: SET_SHOPPING_LIST, value: newList });
+    socket.emit("changed_list", { newList, roomNo });
+    dispatch({ type: LOADING_FALSE });
+  };
 
   const handleComplete = () => {
-    console.log("handling complete");
+    let today = new Date();
+    let timestamp =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear() +
+      " @ " +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
     dispatch({ type: LOADING_TRUE });
 
     const newList = [...shoppingList];
     newList.forEach((item, idx) => {
-      if (item.id === id) {
+      if (
+        item.id === id &&
+        (item.completedBy === "" ||
+          item.completedBy === name ||
+          item.completedBy === null ||
+          item.completedBy === undefined)
+      ) {
         item.completed = !item.completed;
-        item.completedBy = name;
-        return;
+        item.completedBy = item.completed === true ? name : "";
+        item.completedTime = item.completed === true ? timestamp : "";
+        dispatch({ type: SET_SHOPPING_LIST, value: newList });
+        socket.emit("changed_list", { newList, roomNo });
       }
     });
-    dispatch({ type: SET_SHOPPING_LIST, value: newList });
-    socket.emit("changed_list", { newList, roomNo });
 
     dispatch({ type: LOADING_FALSE });
   };
@@ -55,7 +87,9 @@ const Item = ({ title, completed, timestamp, id, completedBy }) => {
         className="card-footer text-muted font-weight-lighter d-flex justify-content-between"
         style={{ fontSize: "12px" }}
       >
-        <div>{timestamp}</div>
+        <div>
+          {timestamp} - {completedTime}{" "}
+        </div>
         {completed === true ? <div>{completedBy}</div> : null}
       </div>
     </div>
