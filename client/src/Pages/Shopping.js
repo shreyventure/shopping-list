@@ -20,6 +20,14 @@ const Shopping = () => {
   useEffect(() => {
     if (state.roomNo === null) Navigate("/");
 
+    socket.on("send_data", (data) => {
+      dispatch({ type: LOADING_TRUE });
+      console.log(data);
+      if (data.newList)
+        dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
+      dispatch({ type: LOADING_FALSE });
+    });
+
     socket.on("changed_list", (data) => {
       dispatch({ type: LOADING_TRUE });
       dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
@@ -29,6 +37,7 @@ const Shopping = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (newItem.length === 0) return;
     dispatch({ type: LOADING_TRUE });
 
     let today = new Date();

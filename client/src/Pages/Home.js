@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { store } from "../configure-store";
+import { db } from "../firebase";
+import { getDoc, doc } from "@firebase/firestore";
 import {
   LOADING_TRUE,
   LOADING_FALSE,
   NEW_ROOM_NO,
+  SET_SHOPPING_LIST,
 } from "../Shopping-reducers/reducer";
 
 const Home = () => {
@@ -17,10 +20,18 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: LOADING_TRUE });
     dispatch({ value: roomNo, type: NEW_ROOM_NO });
+
+    const docRef = doc(db, "shopping", roomNo);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      dispatch({ value: docSnap.data().newList, type: SET_SHOPPING_LIST });
+    }
+
     socket.emit("join_room", roomNo);
     dispatch({ type: LOADING_FALSE });
     navigate("/shopping");
