@@ -20,13 +20,6 @@ const Shopping = () => {
   useEffect(() => {
     if (state.roomNo === null) Navigate("/");
 
-    socket.on("send_data", (data) => {
-      dispatch({ type: LOADING_TRUE });
-      if (data.newList)
-        dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
-      dispatch({ type: LOADING_FALSE });
-    });
-
     socket.on("changed_list", (data) => {
       dispatch({ type: LOADING_TRUE });
       dispatch({ type: SET_SHOPPING_LIST, value: data.newList });

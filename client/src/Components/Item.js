@@ -15,7 +15,7 @@ const Item = ({
   completedTime,
 }) => {
   const dispatch = useDispatch();
-  const { socket, roomNo, shoppingList, name } = store.getState();
+  const { socket, roomNo, shoppingList, name, loading } = store.getState();
 
   const handleDelete = () => {
     dispatch({ type: LOADING_TRUE });
@@ -70,18 +70,26 @@ const Item = ({
             {title}
           </div>
         </div>
-        <div className="d-flex justify-content-around align-items-center px-1">
-          <i
-            className="bi bi-trash-fill px-2 hover-pointer"
-            onClick={handleDelete}
-          ></i>
-          <i
-            className={`bi ${
-              completed === true ? "bi-cart-x-fill" : "bi-cart-check-fill"
-            } border-start px-2 hover-pointer`}
-            onClick={handleComplete}
-          ></i>
-        </div>
+        {loading === false ? (
+          <div className="d-flex justify-content-around align-items-center px-1">
+            <i
+              className="bi bi-trash-fill px-2 hover-pointer text-danger"
+              onClick={handleDelete}
+            ></i>
+            <i
+              className={`bi ${
+                completed === true
+                  ? "bi-cart-x-fill text-secondary"
+                  : "bi-cart-check-fill text-success"
+              } border-start px-2 hover-pointer`}
+              onClick={handleComplete}
+            ></i>
+          </div>
+        ) : (
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
       </div>
       <div
         className="card-footer text-muted font-weight-lighter d-flex justify-content-between"
