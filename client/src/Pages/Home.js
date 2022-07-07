@@ -31,8 +31,9 @@ const Home = () => {
     const docRef = doc(db, "shopping", roomNo);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       dispatch({ value: docSnap.data().newList, type: SET_SHOPPING_LIST });
+    } else {
+      dispatch({ value: [], type: SET_SHOPPING_LIST });
     }
 
     socket.emit("join_room", roomNo);

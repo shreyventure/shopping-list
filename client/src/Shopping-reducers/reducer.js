@@ -12,6 +12,7 @@ export const NEW_ROOM_NO = "NEW_ROOM_NO";
 export const SET_SOCKET = "SET_SOCKET";
 export const SET_SHOPPING_LIST = "SET_SHOPPING_LIST";
 export const SET_NAME = "SET_NAME";
+export const LOGOUT = "LOGOUT";
 
 export const shoppingReducer = function (state = initialState, action) {
   switch (action.type) {
@@ -27,6 +28,8 @@ export const shoppingReducer = function (state = initialState, action) {
       return { ...state, shoppingList: action.value };
     case SET_NAME:
       return { ...state, name: action.value };
+    case LOGOUT:
+      return { ...initialState };
     default:
       return state;
   }
