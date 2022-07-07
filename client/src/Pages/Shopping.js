@@ -59,6 +59,7 @@ const Shopping = () => {
         title: newItem,
         completed: false,
         id: Date.now(),
+        completedBy: "",
         timestamp,
       },
       ...shoppingList,
@@ -98,6 +99,7 @@ const Shopping = () => {
           completed={item.completed}
           timestamp={item.timestamp}
           id={item.id}
+          completedBy={item.completedBy}
         />
       ))}
     </div>

@@ -3,6 +3,7 @@ const initialState = {
   loading: false,
   roomNo: null,
   shoppingList: [],
+  name: "",
 };
 
 export const LOADING_TRUE = "LOADING_TRUE";
@@ -10,6 +11,7 @@ export const LOADING_FALSE = "LOADING_FALSE";
 export const NEW_ROOM_NO = "NEW_ROOM_NO";
 export const SET_SOCKET = "SET_SOCKET";
 export const SET_SHOPPING_LIST = "SET_SHOPPING_LIST";
+export const SET_NAME = "SET_NAME";
 
 export const shoppingReducer = function (state = initialState, action) {
   switch (action.type) {
@@ -23,6 +25,8 @@ export const shoppingReducer = function (state = initialState, action) {
       return { ...state, roomNo: action.value };
     case SET_SHOPPING_LIST:
       return { ...state, shoppingList: action.value };
+    case SET_NAME:
+      return { ...state, name: action.value };
     default:
       return state;
   }
