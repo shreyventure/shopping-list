@@ -17,3 +17,21 @@ Below images portray some examples of using shopping-list.
 ## Marking an item as completed
 
 ![](Images/complete.gif)
+
+## Installation
+
+This project consists of a server and a client folder.
+The server is built using **node.js** and **socket.io**, and is responsible for providing services to connect, sync and coordinate lists among users.
+The client is the front-end framework built using **react.js** and **socket.io-client**.
+
+- In order to get the project up and running, we need to install dependancies for both server and the client.
+  - `$ cd server`
+  - `$ npm install`
+  - `$ cd ..`
+  - `$ cd client`
+  - `$ npm install`
+- Set up a new [google cloud](https://console.cloud.google.com/) project
+- Create a new firestore database
+- Download the secret credential file from the console and save it as `firestore.json` in the `server` folder.
+
+> <em><strong>Note</strong>: Make sure you add `firestore.json` file in `.gitignore` before committing the project to git.</em>
