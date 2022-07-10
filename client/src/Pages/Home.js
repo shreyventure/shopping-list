@@ -41,29 +41,36 @@ const Home = () => {
     navigate("/shopping");
   };
   return (
-    <div className="text-center d-flex justify-content-around align-items-center flex-column m-auto">
+    <div
+      className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
+      style={{ height: "70vh" }}
+    >
       <h1>Welcome</h1>
       <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="roomno">Enter room number:</label>
-        <input
-          type="number"
-          name="roomno"
-          id="roomno"
-          className="m-auto form-control text-center"
-          value={roomNo}
-          onChange={(e) => setRoomNo(e.target.value)}
-          placeholder="Room Number"
-        />
-        <label htmlFor="roomno">Enter name:</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          className="m-auto form-control text-center"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-        />
+        <div className="form-floating">
+          <input
+            type="number"
+            name="roomno"
+            id="roomno"
+            className="m-auto form-control"
+            value={roomNo}
+            onChange={(e) => setRoomNo(e.target.value)}
+            placeholder="Room Number"
+          />
+          <label htmlFor="roomno">Enter room number:</label>
+        </div>
+        <div className="form-floating my-2">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className="m-auto form-control"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+          />
+          <label htmlFor="roomno">Enter name:</label>
+        </div>
         <button type="submit" className="btn btn-success my-3">
           {state.loading === false ? (
             "Submit"
