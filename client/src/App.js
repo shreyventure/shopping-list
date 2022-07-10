@@ -14,7 +14,7 @@ function App() {
   dispatch({ value: socket, type: SET_SOCKET });
 
   return (
-    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+    <div className="d-flex flex-column" style={{ minHeight: "110vh" }}>
       <Header />
       <div className="container">
         <Routes>

@@ -4,6 +4,30 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+body {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1058%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='rgba(156%2c 181%2c 209%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c801.534C149.778%2c779.682%2c286.604%2c725.34%2c419.008%2c651.989C559.832%2c573.973%2c728.384%2c509.605%2c793.064%2c362.18C857.598%2c215.087%2c796.772%2c46.216%2c752.526%2c-108.197C713.071%2c-245.89%2c644.67%2c-369.098%2c552.184%2c-478.47C458.764%2c-588.946%2c353.165%2c-690.492%2c217.536%2c-740.861C76.058%2c-793.402%2c-76.501%2c-792.585%2c-225.269%2c-767.197C-388.736%2c-739.301%2c-578.902%2c-720.516%2c-678.524%2c-587.945C-777.858%2c-455.759%2c-707.028%2c-268.554%2c-723.611%2c-104.039C-739.304%2c51.653%2c-810.563%2c201.194%2c-773.388%2c353.195C-732.194%2c521.63%2c-655.726%2c699.937%2c-505.711%2c786.902C-356.797%2c873.229%2c-170.324%2c826.384%2c0%2c801.534' fill='%234b74a2'%3e%3c/path%3e%3cpath d='M1920 1599.904C2029.251 1604.574 2140.744 1623.3429999999998 2240.7309999999998 1579.068 2349.149 1531.06 2446.928 1450.973 2497.999 1343.963 2549.425 1236.208 2536.517 1111.983 2520.09 993.72 2503.5969999999998 874.98 2489.219 744.799 2403.177 661.3240000000001 2318.766 579.431 2186.874 588.201 2072.762 559.739 1964.025 532.618 1857.62 469.962 1749.1680000000001 498.201 1639.774 526.685 1567.988 625.406 1493.616 710.5360000000001 1418.96 795.991 1327.021 880.255 1316.674 993.255 1306.44 1105.023 1386.673 1200.426 1439.703 1299.344 1489.316 1391.8890000000001 1527.407 1496.6770000000001 1616.42 1552.379 1705.041 1607.836 1815.552 1595.4389999999999 1920 1599.904' fill='%23f3f6fa'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1058'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-position: center;
+}
+
 .hover-pointer:hover {
   cursor: pointer;
   opacity: 0.8;
@@ -15,4 +39,13 @@
 
 .decor-none {
   text-decoration: none;
+}
+
+.bg-transparent {
+  background: transparent;
+}
+
+.outline-none {
+  outline: none;
+  border: none;
 }
