@@ -18,12 +18,24 @@ const Item = ({
   const { socket, roomNo, shoppingList, name, loading } = store.getState();
 
   const handleDelete = () => {
-    dispatch({ type: LOADING_TRUE });
     let newList = [...shoppingList];
-    newList = newList.filter((item, idx) => item.id !== id);
-    dispatch({ type: SET_SHOPPING_LIST, value: newList });
-    socket.emit("changed_list", { newList, roomNo });
-    dispatch({ type: LOADING_FALSE });
+    newList.forEach((item, idx) => {
+      if (
+        item.id === id &&
+        (item.completedBy === "" ||
+          item.completedBy === name ||
+          item.completedBy === null ||
+          item.completedBy === undefined)
+      ) {
+        dispatch({ type: LOADING_TRUE });
+        let newList = [...shoppingList];
+        newList = newList.filter((item, idx) => item.id !== id);
+        dispatch({ type: SET_SHOPPING_LIST, value: newList });
+        socket.emit("changed_list", { newList, roomNo });
+        dispatch({ type: LOADING_FALSE });
+        return;
+      }
+    });
   };
 
   const handleComplete = () => {
@@ -63,7 +75,7 @@ const Item = ({
   };
 
   return (
-    <div className="card m-1">
+    <div className="card m-1 opacity-5">
       <div className="d-flex justify-content-around">
         <div className="card-body">
           <div className={`${completed === true ? "line-through" : ""}`}>
@@ -79,7 +91,7 @@ const Item = ({
             <i
               className={`bi ${
                 completed === true
-                  ? "bi-cart-x-fill text-secondary"
+                  ? "bi-cart-x-fill text-dark"
                   : "bi-cart-check-fill text-success"
               } border-start px-2 hover-pointer`}
               onClick={handleComplete}

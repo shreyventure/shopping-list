@@ -66,21 +66,26 @@ const Shopping = () => {
   return (
     <div>
       <form
-        className="form d-flex justify-content-around my-2"
+        className="form d-flex justify-content-around my-4"
         onSubmit={handleSubmit}
       >
-        <input
-          className="form-control mx-1"
-          type="text"
-          name="item"
-          id="item"
-          placeholder="Bread.."
-          value={newItem}
-          onChange={(e) => {
-            setNewItem(e.target.value);
-          }}
-        />
-        <button type="submit" className="btn btn-success mx-1 d-flex">
+        <div className="form-floating d-inline-block w-100 me-3">
+          <input
+            className="form-control mx-1 outline-none bg-transparent border-bottom text-light"
+            type="text"
+            name="item"
+            id="item"
+            placeholder="Bread.."
+            value={newItem}
+            onChange={(e) => {
+              setNewItem(e.target.value);
+            }}
+          />
+          <label htmlFor="item" className="text-light">
+            Bread...
+          </label>
+        </div>
+        <button type="submit" className="btn btn-success mx-1">
           Add
         </button>
       </form>

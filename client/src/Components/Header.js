@@ -11,7 +11,7 @@ const Header = () => {
     Navigate("/");
   };
   return (
-    <nav className="navbar text-light">
+    <nav className="navbar text-light opacity-8 py-3">
       <div className="container-fluid">
         <div to={"/"} className="decor-none">
           <span className="navbar-brand mb-0 h1">Shopping List</span>
