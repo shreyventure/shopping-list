@@ -29,8 +29,9 @@ const Shopping = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newItem.length === 0) return;
-    if (newItem.length > 200) return;
+    let NewItem = newItem.trim();
+    if (NewItem.length === 0) return;
+    if (NewItem.length > 200) return;
     dispatch({ type: LOADING_TRUE });
 
     let today = new Date();
@@ -49,7 +50,7 @@ const Shopping = () => {
 
     const newList = [
       {
-        title: newItem,
+        title: NewItem,
         completed: false,
         id: Date.now(),
         completedBy: "",
