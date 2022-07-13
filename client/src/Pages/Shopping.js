@@ -30,6 +30,7 @@ const Shopping = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newItem.length === 0) return;
+    if (newItem.length > 200) return;
     dispatch({ type: LOADING_TRUE });
 
     let today = new Date();

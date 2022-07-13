@@ -45,7 +45,6 @@ const Home = () => {
       className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
       style={{ height: "80vh" }}
     >
-      {/* <h1 className="text-light">Welcome</h1> */}
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-floating">
           <input

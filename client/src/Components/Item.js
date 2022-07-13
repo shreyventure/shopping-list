@@ -19,7 +19,7 @@ const Item = ({
 
   const handleDelete = () => {
     let newList = [...shoppingList];
-    newList.forEach((item, idx) => {
+    newList.forEach((item, _idx) => {
       if (
         item.id === id &&
         (item.completedBy === "" ||
