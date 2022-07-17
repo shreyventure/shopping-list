@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { store } from "../configure-store";
 import { db } from "../firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import {
@@ -17,8 +16,8 @@ const Home = () => {
   const [name, setName] = useState("");
 
   const dispatch = useDispatch();
-  const state = store.getState();
-  const socket = state.socket;
+  const socket = useSelector((state) => state.socket);
+  const loading = useSelector((state) => state.loading);
 
   const navigate = useNavigate();
 
@@ -75,7 +74,7 @@ const Home = () => {
           </label>
         </div>
         <button type="submit" className="btn btn-success my-3">
-          {state.loading === false ? (
+          {loading === false ? (
             "Submit"
           ) : (
             <div className="spinner-border" role="status">

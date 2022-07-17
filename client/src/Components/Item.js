@@ -1,5 +1,4 @@
-import { useDispatch } from "react-redux";
-import { store } from "../configure-store";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LOADING_FALSE,
   LOADING_TRUE,
@@ -15,7 +14,12 @@ const Item = ({
   completedTime,
 }) => {
   const dispatch = useDispatch();
-  const { socket, roomNo, shoppingList, name, loading } = store.getState();
+
+  const socket = useSelector((state) => state.socket);
+  const roomNo = useSelector((state) => state.roomNo);
+  const shoppingList = useSelector((state) => state.shoppingList);
+  const name = useSelector((state) => state.name);
+  const loading = useSelector((state) => state.loading);
 
   const handleDelete = () => {
     let newList = [...shoppingList];

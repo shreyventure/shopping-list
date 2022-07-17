@@ -1,10 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { store } from "../configure-store";
 
 const Header = () => {
-  const { name } = store.getState();
+  const name = useSelector((state) => state.name);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });

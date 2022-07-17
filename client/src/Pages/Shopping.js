@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Item from "../Components/Item";
-import { store } from "../configure-store";
 import {
   LOADING_FALSE,
   LOADING_TRUE,
@@ -10,22 +9,25 @@ import {
 } from "../Shopping-reducers/reducer";
 
 const Shopping = () => {
-  const state = store.getState();
   const Navigate = useNavigate();
 
   const [newItem, setNewItem] = useState("");
   const dispatch = useDispatch();
-  const { shoppingList, socket, roomNo, loading } = store.getState();
+
+  const shoppingList = useSelector((state) => state.shoppingList);
+  const socket = useSelector((state) => state.socket);
+  const roomNo = useSelector((state) => state.roomNo);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
-    if (state.roomNo === null) Navigate("/");
+    if (roomNo === null) Navigate("/");
 
     socket.on("changed_list", (data) => {
       dispatch({ type: LOADING_TRUE });
       dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
       dispatch({ type: LOADING_FALSE });
     });
-  }, [Navigate, dispatch, socket, state.roomNo]);
+  }, [Navigate, dispatch, socket, roomNo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
