@@ -1,13 +1,12 @@
 import React from "react";
 import UserIcon from "./UserIcon";
 
-const Sidebar = () => {
+const Sidebar = ({ users }) => {
   return (
-    <div className="sidebar d-flex flex-column p-2 ">
-      <UserIcon name={"Shreyas"} />
-      <UserIcon name={"Shreyas"} />
-      <UserIcon name={"Shreyas"} />
-      <UserIcon name={"Shreyas"} />
+    <div className="sidebar d-flex flex-column p-3 ">
+      {users !== null || users !== undefined
+        ? users.map((name, idx) => <UserIcon key={idx} name={name} />)
+        : null}
     </div>
   );
 };

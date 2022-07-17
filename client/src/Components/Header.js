@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const name = useSelector((state) => state.name);
+  const roomNo = useSelector((state) => state.roomNo);
+  const socket = useSelector((state) => state.socket);
   const dispatch = useDispatch();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await socket.emit("logging_out", { roomNo, name });
     dispatch({ type: "LOGOUT" });
   };
   return (

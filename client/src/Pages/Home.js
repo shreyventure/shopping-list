@@ -9,6 +9,7 @@ import {
   NEW_ROOM_NO,
   SET_SHOPPING_LIST,
   SET_NAME,
+  SET_USERS,
 } from "../Shopping-reducers/reducer";
 
 const Home = () => {
@@ -30,12 +31,15 @@ const Home = () => {
     const docRef = doc(db, "shopping", roomNo);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      dispatch({ value: docSnap.data().newList, type: SET_SHOPPING_LIST });
+      const Data = docSnap.data();
+      dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
+      dispatch({ value: [...Data.users, name], type: SET_USERS });
     } else {
       dispatch({ value: [], type: SET_SHOPPING_LIST });
     }
 
-    socket.emit("join_room", roomNo);
+    await socket.emit("users_list_change", { roomNo, name });
+    await socket.emit("join_room", { roomNo });
     dispatch({ type: LOADING_FALSE });
     navigate("/shopping");
   };

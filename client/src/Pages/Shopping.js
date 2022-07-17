@@ -6,7 +6,9 @@ import Sidebar from "../Components/Sidebar";
 import {
   LOADING_FALSE,
   LOADING_TRUE,
+  LOGOUT,
   SET_SHOPPING_LIST,
+  SET_USERS,
 } from "../Shopping-reducers/reducer";
 
 const Shopping = () => {
@@ -19,13 +21,23 @@ const Shopping = () => {
   const socket = useSelector((state) => state.socket);
   const roomNo = useSelector((state) => state.roomNo);
   const loading = useSelector((state) => state.loading);
+  const users = useSelector((state) => state.users);
 
   useEffect(() => {
-    if (roomNo === null) Navigate("/");
+    if (roomNo === null) {
+      dispatch({ type: LOGOUT });
+      Navigate("/");
+    }
 
     socket.on("changed_list", (data) => {
       dispatch({ type: LOADING_TRUE });
       dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
+      dispatch({ type: LOADING_FALSE });
+    });
+
+    socket.on("new_users_list", async (new_users) => {
+      dispatch({ type: LOADING_TRUE });
+      dispatch({ value: new_users, type: SET_USERS });
       dispatch({ type: LOADING_FALSE });
     });
   }, [Navigate, dispatch, socket, roomNo]);
@@ -70,7 +82,7 @@ const Shopping = () => {
   };
   return (
     <div className="d-flex">
-      <Sidebar />
+      <Sidebar users={users} />
       <div className="shopping container">
         <form
           className="form d-flex justify-content-around my-4"
