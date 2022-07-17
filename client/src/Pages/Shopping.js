@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Item from "../Components/Item";
+import Sidebar from "../Components/Sidebar";
 import {
   LOADING_FALSE,
   LOADING_TRUE,
@@ -68,47 +69,50 @@ const Shopping = () => {
     dispatch({ type: LOADING_FALSE });
   };
   return (
-    <div>
-      <form
-        className="form d-flex justify-content-around my-4"
-        onSubmit={handleSubmit}
-      >
-        <div className="form-floating d-inline-block w-100 me-3">
-          <input
-            className="form-control mx-1 outline-none bg-transparent border-bottom text-light"
-            type="text"
-            name="item"
-            id="item"
-            placeholder="Bread.."
-            value={newItem}
-            onChange={(e) => {
-              setNewItem(e.target.value);
-            }}
+    <div className="d-flex">
+      <Sidebar />
+      <div className="shopping container">
+        <form
+          className="form d-flex justify-content-around my-4"
+          onSubmit={handleSubmit}
+        >
+          <div className="form-floating d-inline-block w-100 me-3">
+            <input
+              className="form-control mx-1 outline-none bg-transparent border-bottom text-light"
+              type="text"
+              name="item"
+              id="item"
+              placeholder="Bread.."
+              value={newItem}
+              onChange={(e) => {
+                setNewItem(e.target.value);
+              }}
+            />
+            <label htmlFor="item" className="text-light">
+              Bread...
+            </label>
+          </div>
+          <button type="submit" className="btn btn-success mx-1">
+            Add
+          </button>
+        </form>
+        {loading === true ? (
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : null}
+        {shoppingList.map((item, idx) => (
+          <Item
+            key={item.id + "_" + String(idx)}
+            title={item.title}
+            completed={item.completed}
+            timestamp={item.timestamp}
+            id={item.id}
+            completedBy={item.completedBy}
+            completedTime={item.completedTime}
           />
-          <label htmlFor="item" className="text-light">
-            Bread...
-          </label>
-        </div>
-        <button type="submit" className="btn btn-success mx-1">
-          Add
-        </button>
-      </form>
-      {loading === true ? (
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      ) : null}
-      {shoppingList.map((item, idx) => (
-        <Item
-          key={item.id + "_" + String(idx)}
-          title={item.title}
-          completed={item.completed}
-          timestamp={item.timestamp}
-          id={item.id}
-          completedBy={item.completedBy}
-          completedTime={item.completedTime}
-        />
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

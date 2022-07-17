@@ -40,49 +40,51 @@ const Home = () => {
     navigate("/shopping");
   };
   return (
-    <div
-      className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
-      style={{ height: "80vh" }}
-    >
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-floating">
-          <input
-            type="number"
-            name="roomno"
-            id="roomno"
-            className="m-auto form-control text-light outline-none bg-transparent border-bottom"
-            value={roomNo}
-            onChange={(e) => setRoomNo(e.target.value)}
-            placeholder="Room Number"
-          />
-          <label htmlFor="roomno" className="text-light">
-            Enter room number
-          </label>
-        </div>
-        <div className="form-floating my-2">
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="m-auto form-control bg-transparent text-light outline-none border-bottom"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-          />
-          <label htmlFor="roomno" className="text-light">
-            Enter name
-          </label>
-        </div>
-        <button type="submit" className="btn btn-success my-3">
-          {loading === false ? (
-            "Submit"
-          ) : (
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )}
-        </button>
-      </form>
+    <div className="container">
+      <div
+        className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
+        style={{ height: "80vh" }}
+      >
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="form-floating">
+            <input
+              type="number"
+              name="roomno"
+              id="roomno"
+              className="m-auto form-control text-light outline-none bg-transparent border-bottom"
+              value={roomNo}
+              onChange={(e) => setRoomNo(e.target.value)}
+              placeholder="Room Number"
+            />
+            <label htmlFor="roomno" className="text-light">
+              Enter room number
+            </label>
+          </div>
+          <div className="form-floating my-2">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="m-auto form-control bg-transparent text-light outline-none border-bottom"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+            />
+            <label htmlFor="roomno" className="text-light">
+              Enter name
+            </label>
+          </div>
+          <button type="submit" className="btn btn-success my-3">
+            {loading === false ? (
+              "Submit"
+            ) : (
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -12,15 +12,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    LoadingTrue: () => dispatch({ type: "LOADING_TRUE" }),
-    LoadingFalse: () => dispatch({ type: "LOADING_FALSE" }),
-  };
-};
-
 const Component = () => <App />;
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps)(Component);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -23,6 +23,10 @@ io.on("connection", (socket) => {
   socket.on("join_room", async (roomNo) => {
     console.log(roomNo);
     socket.join(roomNo);
+
+    // var srvSockets = io.sockets.sockets;
+    // console.log(srvSockets.keys());
+    // console.log(srvSockets.values());
   });
 
   socket.on("changed_list", async (data) => {
