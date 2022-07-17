@@ -27,20 +27,30 @@ io.on("connection", (socket) => {
   });
 
   socket.on("changed_list", async (data) => {
-    await firestoreClient.save(data.roomNo, data);
+    const response = await firestoreClient.getData(data.roomNo);
+    let Data = response.data();
+    if (Data) {
+      Data["newList"] = data.newList;
+      await firestoreClient.save(data.roomNo, Data);
+    } else {
+      await firestoreClient.save(data.roomNo, Data);
+    }
     socket.to(data.roomNo).emit("changed_list", data);
   });
 
   socket.on("users_list_change", async ({ roomNo, name }) => {
     const response = await firestoreClient.getData(roomNo);
-    const Data = response.data();
-    if (Data.users && !Data.users.includes(name)) {
+    let Data = response.data();
+    if (Data && Data.users && !Data.users.includes(name)) {
       Data.users.push(name);
-    } else if (Data.users && Data.users.includes(name)) {
+    } else if (Data && Data.users && Data.users.includes(name)) {
       socket.join(roomNo);
       return;
     } else {
+      Data = {};
+      Data.newList = [];
       Data.users = [name];
+      Data.roomNo = roomNo;
     }
     await firestoreClient.save(roomNo, Data);
     socket.to(roomNo).emit("new_users_list", Data.users);
@@ -49,10 +59,12 @@ io.on("connection", (socket) => {
   socket.on("logging_out", async ({ roomNo, name }) => {
     const response = await firestoreClient.getData(roomNo);
     const Data = response.data();
-    let newUsers = Data.users.filter((_name) => !(_name === name));
-    Data.users = newUsers;
-    await firestoreClient.save(roomNo, Data);
-    socket.to(roomNo).emit("new_users_list", Data.users);
+    if (Data) {
+      let newUsers = Data.users.filter((_name) => !(_name === name));
+      Data.users = newUsers;
+      await firestoreClient.save(roomNo, Data);
+      socket.to(roomNo).emit("new_users_list", Data.users);
+    }
   });
 });
 

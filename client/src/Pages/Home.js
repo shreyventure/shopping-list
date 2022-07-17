@@ -36,6 +36,7 @@ const Home = () => {
       dispatch({ value: [...Data.users, name], type: SET_USERS });
     } else {
       dispatch({ value: [], type: SET_SHOPPING_LIST });
+      dispatch({ value: [name], type: SET_USERS });
     }
 
     await socket.emit("users_list_change", { roomNo, name });
