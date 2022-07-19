@@ -71,3 +71,54 @@ body {
   width: 40px;
   height: 40px;
 }
+
+.AlertAnimation-enter {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.AlertAnimation-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
+}
+.AlertAnimation-exit {
+  opacity: 1;
+}
+.AlertAnimation-exit-active {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.ItemAnimation-enter {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.ItemAnimation-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 500ms;
+}
+.ItemAnimation-exit {
+  opacity: 1;
+}
+.ItemAnimation-exit-active {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* .ItemAnimation-enter {
+  opacity: 0;
+}
+.ItemAnimation-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.ItemAnimation-exit {
+  opacity: 1;
+}
+.ItemAnimation-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+} */

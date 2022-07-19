@@ -4,6 +4,8 @@ import {
   LOADING_TRUE,
   SET_SHOPPING_LIST,
 } from "../Shopping-reducers/reducer";
+import { CSSTransition } from "react-transition-group";
+import { useEffect, useState } from "react";
 
 const Item = ({
   title,
@@ -12,7 +14,12 @@ const Item = ({
   id,
   completedBy,
   completedTime,
+  idx,
 }) => {
+  const [listItemAnimation, setListItemAnimation] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setListItemAnimation(true), 70 * idx);
+  });
   const dispatch = useDispatch();
 
   const socket = useSelector((state) => state.socket);
@@ -79,44 +86,51 @@ const Item = ({
   };
 
   return (
-    <div className="card m-1 opacity-5">
-      <div className="d-flex justify-content-around">
-        <div className="card-body">
-          <div className={`${completed === true ? "line-through" : ""}`}>
-            {title}
+    <CSSTransition
+      in={listItemAnimation}
+      timeout={700 * (idx + 5)}
+      classNames="ItemAnimation"
+      unmountOnExit
+    >
+      <div className="card m-1 opacity-5">
+        <div className="d-flex justify-content-around">
+          <div className="card-body">
+            <div className={`${completed === true ? "line-through" : ""}`}>
+              {title}
+            </div>
           </div>
+          {loading === false ? (
+            <div className="d-flex justify-content-around align-items-center px-1">
+              <i
+                className="bi bi-trash-fill px-2 hover-pointer text-danger"
+                onClick={handleDelete}
+              ></i>
+              <i
+                className={`bi ${
+                  completed === true
+                    ? "bi-cart-x-fill text-dark"
+                    : "bi-cart-check-fill text-success"
+                } border-start px-2 hover-pointer`}
+                onClick={handleComplete}
+              ></i>
+            </div>
+          ) : (
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
         </div>
-        {loading === false ? (
-          <div className="d-flex justify-content-around align-items-center px-1">
-            <i
-              className="bi bi-trash-fill px-2 hover-pointer text-danger"
-              onClick={handleDelete}
-            ></i>
-            <i
-              className={`bi ${
-                completed === true
-                  ? "bi-cart-x-fill text-dark"
-                  : "bi-cart-check-fill text-success"
-              } border-start px-2 hover-pointer`}
-              onClick={handleComplete}
-            ></i>
+        <div
+          className="card-footer text-muted font-weight-lighter d-flex justify-content-between"
+          style={{ fontSize: "12px" }}
+        >
+          <div>
+            {timestamp} - {completedTime}{" "}
           </div>
-        ) : (
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-      </div>
-      <div
-        className="card-footer text-muted font-weight-lighter d-flex justify-content-between"
-        style={{ fontSize: "12px" }}
-      >
-        <div>
-          {timestamp} - {completedTime}{" "}
+          {completed === true ? <div>{completedBy}</div> : null}
         </div>
-        {completed === true ? <div>{completedBy}</div> : null}
       </div>
-    </div>
+    </CSSTransition>
   );
 };
 

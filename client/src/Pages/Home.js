@@ -33,7 +33,9 @@ const Home = () => {
     if (docSnap.exists()) {
       const Data = docSnap.data();
       dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
-      dispatch({ value: [...Data.users, name], type: SET_USERS });
+      if (!Data.users.includes(name))
+        dispatch({ value: [...Data.users, name], type: SET_USERS });
+      else dispatch({ value: [...Data.users], type: SET_USERS });
     } else {
       dispatch({ value: [], type: SET_SHOPPING_LIST });
       dispatch({ value: [name], type: SET_USERS });

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { SwitchTransition } from "react-transition-group";
+import Alert from "../Components/Alert";
 import Item from "../Components/Item";
 import Sidebar from "../Components/Sidebar";
 import {
@@ -12,6 +14,10 @@ import {
 } from "../Shopping-reducers/reducer";
 
 const Shopping = () => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState("danger");
+  const [alertMsg, setAlertMsg] = useState("");
+
   const Navigate = useNavigate();
 
   const [newItem, setNewItem] = useState("");
@@ -45,10 +51,15 @@ const Shopping = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let NewItem = newItem.trim();
-    if (NewItem.length === 0) return;
+    if (NewItem.length === 0) {
+      setAlertType("danger");
+      setAlertMsg("A list item cannot be empty.");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
     if (NewItem.length > 200) return;
     dispatch({ type: LOADING_TRUE });
-
     let today = new Date();
     let timestamp =
       today.getDate() +
@@ -108,6 +119,7 @@ const Shopping = () => {
             Add
           </button>
         </form>
+        <Alert type={alertType} msg={alertMsg} show={showAlert} />
         {loading === true ? (
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -122,6 +134,7 @@ const Shopping = () => {
             id={item.id}
             completedBy={item.completedBy}
             completedTime={item.completedTime}
+            idx={idx}
           />
         ))}
       </div>

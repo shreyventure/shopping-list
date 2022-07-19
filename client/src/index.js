@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { store } from "./configure-store";
+import "animate.css";
 
 const mapStateToProps = (state) => {
   return {
