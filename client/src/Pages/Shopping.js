@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SwitchTransition } from "react-transition-group";
 import Alert from "../Components/Alert";
 import Item from "../Components/Item";
 import Sidebar from "../Components/Sidebar";
@@ -58,7 +57,13 @@ const Shopping = () => {
       setTimeout(() => setShowAlert(false), 3000);
       return;
     }
-    if (NewItem.length > 200) return;
+    if (NewItem.length > 200) {
+      setAlertType("danger");
+      setAlertMsg("A list item cannot extend 200 characters.");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
     dispatch({ type: LOADING_TRUE });
     let today = new Date();
     let timestamp =
