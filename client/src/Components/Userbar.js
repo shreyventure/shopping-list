@@ -1,9 +1,9 @@
 import React from "react";
 import UserIcon from "./UserIcon";
 
-const Sidebar = ({ users }) => {
+const Userbar = ({ users }) => {
   return (
-    <div className="sidebar d-flex flex-column p-3 ">
+    <div className="userbar d-flex flex-column p-3 ">
       {users !== null || users !== undefined
         ? users.map((name, idx) => <UserIcon key={idx} name={name} />)
         : null}
@@ -11,4 +11,4 @@ const Sidebar = ({ users }) => {
   );
 };
 
-export default Sidebar;
+export default Userbar;

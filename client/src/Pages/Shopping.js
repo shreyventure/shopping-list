@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Alert from "../Components/Alert";
 import Item from "../Components/Item";
-import Sidebar from "../Components/Sidebar";
+import Userbar from "../Components/Userbar";
 import {
   LOADING_FALSE,
   LOADING_TRUE,
@@ -16,6 +16,8 @@ const Shopping = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState("danger");
   const [alertMsg, setAlertMsg] = useState("");
+
+  const [glow, setGlow] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -95,10 +97,14 @@ const Shopping = () => {
     setNewItem("");
 
     dispatch({ type: LOADING_FALSE });
+    setGlow(true);
+    setTimeout(() => {
+      setGlow(false);
+    }, 3000);
   };
   return (
     <div className="d-flex">
-      <Sidebar users={users} />
+      <Userbar users={users} />
       <div className="shopping container">
         <form
           className="form d-flex justify-content-around my-4"
@@ -140,6 +146,7 @@ const Shopping = () => {
             completedBy={item.completedBy}
             completedTime={item.completedTime}
             idx={idx}
+            glow={idx === 0 && glow === true ? glow : false}
           />
         ))}
       </div>

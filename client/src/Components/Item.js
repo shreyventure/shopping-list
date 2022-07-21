@@ -15,6 +15,7 @@ const Item = ({
   completedBy,
   completedTime,
   idx,
+  glow,
 }) => {
   const [listItemAnimation, setListItemAnimation] = useState(false);
   useEffect(() => {
@@ -92,7 +93,7 @@ const Item = ({
       classNames="ItemAnimation"
       unmountOnExit
     >
-      <div className="card m-1 opacity-5">
+      <div className={`card m-1 opacity-5 ${glow ? "glow" : ""}`}>
         <div className="d-flex justify-content-around">
           <div className="card-body">
             <div className={`${completed === true ? "line-through" : ""}`}>

@@ -18,6 +18,8 @@ Below images portray some examples of using shopping-list.
 
 ![](Images/complete.gif)
 
+> <em><strong>Note</strong>: Images displayed above are gif created using older version of shopping-list.
+
 ## Installation
 
 This project consists of a server and a client folder.
