@@ -29,6 +29,7 @@ const Shopping = () => {
   const roomNo = useSelector((state) => state.roomNo);
   const loading = useSelector((state) => state.loading);
   const users = useSelector((state) => state.users);
+  const name = useSelector((state) => state.name);
 
   useEffect(() => {
     if (roomNo === null) {
@@ -36,18 +37,23 @@ const Shopping = () => {
       Navigate("/");
     }
 
-    socket.on("changed_list", (data) => {
-      dispatch({ type: LOADING_TRUE });
-      dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
-      dispatch({ type: LOADING_FALSE });
-    });
+    try {
+      socket.on("changed_list", (data) => {
+        dispatch({ type: LOADING_TRUE });
+        dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
+        dispatch({ type: LOADING_FALSE });
+      });
 
-    socket.on("new_users_list", async (new_users) => {
-      dispatch({ type: LOADING_TRUE });
-      dispatch({ value: new_users, type: SET_USERS });
-      dispatch({ type: LOADING_FALSE });
-    });
-  }, [Navigate, dispatch, socket, roomNo]);
+      socket.on("new_users_list", async (new_users) => {
+        dispatch({ type: LOADING_TRUE });
+        dispatch({ value: new_users, type: SET_USERS });
+        dispatch({ type: LOADING_FALSE });
+      });
+    } catch (error) {
+      dispatch({ type: LOGOUT });
+      Navigate("/");
+    }
+  }, [Navigate, dispatch, socket, roomNo, name]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,14 +111,14 @@ const Shopping = () => {
   return (
     <div className="d-flex">
       <Userbar users={users} />
-      <div className="shopping container">
+      <div className="shopping container mb-5">
         <form
           className="form d-flex justify-content-around my-4"
           onSubmit={handleSubmit}
         >
           <div className="form-floating d-inline-block w-100 me-3">
             <input
-              className="form-control mx-1 outline-none bg-transparent border-bottom text-light"
+              className="form-control mx-1 outline-none bg-transparent border-bottom-in"
               type="text"
               name="item"
               id="item"
@@ -122,7 +128,7 @@ const Shopping = () => {
                 setNewItem(e.target.value);
               }}
             />
-            <label htmlFor="item" className="text-light">
+            <label htmlFor="item" className="text-muted">
               Bread...
             </label>
           </div>

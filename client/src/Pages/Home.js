@@ -58,12 +58,12 @@ const Home = () => {
               type="number"
               name="roomno"
               id="roomno"
-              className="m-auto form-control text-light outline-none bg-transparent border-bottom"
+              className="m-auto form-control outline-none bg-transparent border-bottom-in"
               value={roomNo}
               onChange={(e) => setRoomNo(e.target.value)}
               placeholder="Room Number"
             />
-            <label htmlFor="roomno" className="text-light">
+            <label htmlFor="roomno" className="text-muted">
               Enter room number
             </label>
           </div>
@@ -72,12 +72,12 @@ const Home = () => {
               type="text"
               name="name"
               id="name"
-              className="m-auto form-control bg-transparent text-light outline-none border-bottom"
+              className="m-auto form-control bg-transparent outline-none border-bottom-in"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
             />
-            <label htmlFor="roomno" className="text-light">
+            <label htmlFor="roomno" className="text-muted">
               Enter name
             </label>
           </div>
