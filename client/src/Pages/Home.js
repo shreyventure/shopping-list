@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { getDoc, doc } from "@firebase/firestore";
+import Alert from "../Components/Alert";
 import {
   LOADING_TRUE,
   LOADING_FALSE,
@@ -15,6 +16,8 @@ import {
 const Home = () => {
   const [roomNo, setRoomNo] = useState("");
   const [name, setName] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const dispatch = useDispatch();
   const socket = useSelector((state) => state.socket);
@@ -25,29 +28,45 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: LOADING_TRUE });
-    dispatch({ value: roomNo, type: NEW_ROOM_NO });
-    dispatch({ value: name, type: SET_NAME });
 
     const docRef = doc(db, "shopping", roomNo);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const Data = docSnap.data();
-      dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
-      if (!Data.users.includes(name))
+      if (!Data.users.includes(name)) {
+        dispatch({ value: roomNo, type: NEW_ROOM_NO });
+        dispatch({ value: name, type: SET_NAME });
+        dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
         dispatch({ value: [...Data.users, name], type: SET_USERS });
-      else dispatch({ value: [...Data.users], type: SET_USERS });
+      } else {
+        setAlertMsg(
+          `This user is already present in the room number ${roomNo}. Please login using a different name or reach out to contact support.`
+        );
+        setShowAlert(true);
+        setTimeout(() => {
+          setAlertMsg("");
+          setShowAlert(false);
+        }, 7000);
+        dispatch({ type: LOADING_FALSE });
+        return;
+      }
     } else {
       dispatch({ value: [], type: SET_SHOPPING_LIST });
       dispatch({ value: [name], type: SET_USERS });
     }
-
+    console.log("no returnn");
     await socket.emit("users_list_change", { roomNo, name });
     await socket.emit("join_room", { roomNo });
     dispatch({ type: LOADING_FALSE });
+    setName("");
+    setRoomNo("");
     navigate("/shopping");
   };
   return (
     <div className="container">
+      {showAlert ? (
+        <Alert type={"danger"} msg={alertMsg} show={showAlert} />
+      ) : null}
       <div
         className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
         style={{ height: "80vh" }}

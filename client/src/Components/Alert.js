@@ -8,7 +8,7 @@ const Alert = ({ type, msg, show }) => {
     else setShowMessage(false);
   }, [show]);
   return (
-    <>
+    <div className="my-1">
       <CSSTransition
         in={showMessage}
         timeout={700}
@@ -19,7 +19,7 @@ const Alert = ({ type, msg, show }) => {
           {msg}
         </div>
       </CSSTransition>
-    </>
+    </div>
   );
 };
 
