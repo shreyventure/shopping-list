@@ -1,4 +1,4 @@
-# Shopping-List
+# Shopping-List 🛒📃
 
 Shopping-List is not an ordinary todo-list. It utilizes crud functionalities to provide creation, deletion, etc. These functionalities, however, are dynamic, nimble and happen in real-time for the users sharing the list, all thanks to socket-io.
 
@@ -20,7 +20,7 @@ Below images portray some examples of using shopping-list.
 
 > <em><strong>Note</strong>: Images displayed above are gifs created using older version of shopping-list and only exist inorder to potray the app functionality.
 
-## Installation
+## Installation 🖥️
 
 This project consists of a server and a client folder.
 The server is built using **node.js** and **socket.io**, and is responsible for providing services to connect, sync and coordinate lists among users.
@@ -37,3 +37,14 @@ The client is the front-end framework built using **react.js** and **socket.io-c
 - Download the secret credential file from the console and save it as `firestore.json` in the `server` folder.
 
 > <em><strong>Note</strong>: Make sure you add `firestore.json` file in `.gitignore` before committing the project to git.</em>
+
+## Contributors ✨
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/shreyventure">
+      <img src="https://github.com/shreyventure.png" width="100px;" alt="Shreyas Shrawage"/>
+      <br /><sub><b>Shreyas Shrawage</b></sub></a><br />
+    </td>
+  <tr>
+<table>
