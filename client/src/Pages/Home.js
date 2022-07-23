@@ -11,6 +11,7 @@ import {
   SET_SHOPPING_LIST,
   SET_NAME,
   SET_USERS,
+  SET_SOCKET,
 } from "../Shopping-reducers/reducer";
 
 const Home = () => {
@@ -38,9 +39,12 @@ const Home = () => {
         dispatch({ value: name, type: SET_NAME });
         dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
         dispatch({ value: [...Data.users, name], type: SET_USERS });
+        let new_socket = { ...socket };
+        new_socket.shopping_list_user_name = name;
+        dispatch({ value: new_socket, type: SET_SOCKET });
       } else {
         setAlertMsg(
-          `This user is already present in the room number ${roomNo}. Please login using a different name or reach out to contact support.`
+          `This user is already present in room number ${roomNo}. Please login using a different name or reach out to contact support.`
         );
         setShowAlert(true);
         setTimeout(() => {
@@ -56,7 +60,7 @@ const Home = () => {
     }
     console.log("no returnn");
     await socket.emit("users_list_change", { roomNo, name });
-    await socket.emit("join_room", { roomNo });
+    await socket.emit("join_room", { roomNo, name });
     dispatch({ type: LOADING_FALSE });
     setName("");
     setRoomNo("");

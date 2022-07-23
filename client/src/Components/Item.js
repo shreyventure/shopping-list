@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LOADING_FALSE,
-  LOADING_TRUE,
-  SET_SHOPPING_LIST,
-} from "../Shopping-reducers/reducer";
+import { SET_SHOPPING_LIST } from "../Shopping-reducers/reducer";
 import { CSSTransition } from "react-transition-group";
 import { useEffect, useState } from "react";
 
@@ -27,7 +23,6 @@ const Item = ({
   const roomNo = useSelector((state) => state.roomNo);
   const shoppingList = useSelector((state) => state.shoppingList);
   const name = useSelector((state) => state.name);
-  const loading = useSelector((state) => state.loading);
 
   const handleDelete = () => {
     let newList = [...shoppingList];
@@ -39,12 +34,10 @@ const Item = ({
           item.completedBy === null ||
           item.completedBy === undefined)
       ) {
-        dispatch({ type: LOADING_TRUE });
         let newList = [...shoppingList];
         newList = newList.filter((item, idx) => item.id !== id);
         dispatch({ type: SET_SHOPPING_LIST, value: newList });
         socket.emit("changed_list", { newList, roomNo });
-        dispatch({ type: LOADING_FALSE });
         return;
       }
     });
@@ -64,7 +57,6 @@ const Item = ({
       today.getMinutes() +
       ":" +
       today.getSeconds();
-    dispatch({ type: LOADING_TRUE });
 
     const newList = [...shoppingList];
     newList.forEach((item, idx) => {
@@ -82,8 +74,6 @@ const Item = ({
         socket.emit("changed_list", { newList, roomNo });
       }
     });
-
-    dispatch({ type: LOADING_FALSE });
   };
 
   return (
@@ -100,26 +90,20 @@ const Item = ({
               {title}
             </div>
           </div>
-          {loading === false ? (
-            <div className="d-flex justify-content-around align-items-center px-1">
-              <i
-                className="bi bi-trash-fill px-2 hover-pointer text-danger"
-                onClick={handleDelete}
-              ></i>
-              <i
-                className={`bi ${
-                  completed === true
-                    ? "bi-cart-x-fill text-dark"
-                    : "bi-cart-check-fill text-success"
-                } border-start px-2 hover-pointer`}
-                onClick={handleComplete}
-              ></i>
-            </div>
-          ) : (
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )}
+          <div className="d-flex justify-content-around align-items-center px-1">
+            <i
+              className="bi bi-trash-fill px-2 hover-pointer text-danger"
+              onClick={handleDelete}
+            ></i>
+            <i
+              className={`bi ${
+                completed === true
+                  ? "bi-cart-x-fill text-dark"
+                  : "bi-cart-check-fill text-success"
+              } border-start px-2 hover-pointer`}
+              onClick={handleComplete}
+            ></i>
+          </div>
         </div>
         <div
           className="card-footer text-muted font-weight-lighter d-flex justify-content-between"

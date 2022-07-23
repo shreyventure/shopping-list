@@ -5,8 +5,6 @@ import Alert from "../Components/Alert";
 import Item from "../Components/Item";
 import Userbar from "../Components/Userbar";
 import {
-  LOADING_FALSE,
-  LOADING_TRUE,
   LOGOUT,
   SET_SHOPPING_LIST,
   SET_USERS,
@@ -27,7 +25,6 @@ const Shopping = () => {
   const shoppingList = useSelector((state) => state.shoppingList);
   const socket = useSelector((state) => state.socket);
   const roomNo = useSelector((state) => state.roomNo);
-  const loading = useSelector((state) => state.loading);
   const users = useSelector((state) => state.users);
   const name = useSelector((state) => state.name);
 
@@ -39,15 +36,11 @@ const Shopping = () => {
 
     try {
       socket.on("changed_list", (data) => {
-        dispatch({ type: LOADING_TRUE });
         dispatch({ type: SET_SHOPPING_LIST, value: data.newList });
-        dispatch({ type: LOADING_FALSE });
       });
 
       socket.on("new_users_list", async (new_users) => {
-        dispatch({ type: LOADING_TRUE });
         dispatch({ value: new_users, type: SET_USERS });
-        dispatch({ type: LOADING_FALSE });
       });
     } catch (error) {
       dispatch({ type: LOGOUT });
@@ -72,7 +65,6 @@ const Shopping = () => {
       setTimeout(() => setShowAlert(false), 3000);
       return;
     }
-    dispatch({ type: LOADING_TRUE });
     let today = new Date();
     let timestamp =
       today.getDate() +
@@ -102,7 +94,6 @@ const Shopping = () => {
     socket.emit("changed_list", { newList, roomNo });
     setNewItem("");
 
-    dispatch({ type: LOADING_FALSE });
     setGlow(true);
     setTimeout(() => {
       setGlow(false);
@@ -137,11 +128,6 @@ const Shopping = () => {
           </button>
         </form>
         <Alert type={alertType} msg={alertMsg} show={showAlert} />
-        {loading === true ? (
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        ) : null}
         {shoppingList.map((item, idx) => (
           <Item
             key={item.id + "_" + String(idx)}
