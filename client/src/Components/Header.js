@@ -19,7 +19,7 @@ const Header = () => {
     setTimeout(() => {
       dispatch({ type: "LOGOUT" });
       dispatch({ type: LOADING_FALSE });
-    }, 2000);
+    }, 1500);
   };
   return (
     <nav className="navbar navbar-expand-lg text-light opacity-8 py-3 header">

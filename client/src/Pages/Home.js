@@ -19,6 +19,7 @@ const Home = () => {
   const [name, setName] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState("");
 
   const dispatch = useDispatch();
   const socket = useSelector((state) => state.socket);
@@ -30,46 +31,56 @@ const Home = () => {
     e.preventDefault();
     dispatch({ type: LOADING_TRUE });
 
-    const docRef = doc(db, "shopping", roomNo);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const Data = docSnap.data();
-      if (!Data.users.includes(name)) {
-        dispatch({ value: roomNo, type: NEW_ROOM_NO });
-        dispatch({ value: name, type: SET_NAME });
-        dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
-        dispatch({ value: [...Data.users, name], type: SET_USERS });
-        let new_socket = { ...socket };
-        new_socket.shopping_list_user_name = name;
-        dispatch({ value: new_socket, type: SET_SOCKET });
+    if (socket.connected) {
+      const docRef = doc(db, "shopping", roomNo);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const Data = docSnap.data();
+        if (!Data.users.includes(name)) {
+          dispatch({ value: roomNo, type: NEW_ROOM_NO });
+          dispatch({ value: name, type: SET_NAME });
+          dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
+          dispatch({ value: [...Data.users, name], type: SET_USERS });
+          let new_socket = { ...socket };
+          new_socket.shopping_list_user_name = name;
+          dispatch({ value: new_socket, type: SET_SOCKET });
+        } else {
+          setAlertMsg(
+            `This user is already present in room number ${roomNo}. Please login using a different name or reach out to contact support.`
+          );
+          setShowAlert(true);
+          setTimeout(() => {
+            setAlertMsg("");
+            setShowAlert(false);
+          }, 7000);
+          dispatch({ type: LOADING_FALSE });
+          return;
+        }
       } else {
-        setAlertMsg(
-          `This user is already present in room number ${roomNo}. Please login using a different name or reach out to contact support.`
-        );
-        setShowAlert(true);
-        setTimeout(() => {
-          setAlertMsg("");
-          setShowAlert(false);
-        }, 7000);
-        dispatch({ type: LOADING_FALSE });
-        return;
+        dispatch({ value: [], type: SET_SHOPPING_LIST });
+        dispatch({ value: [name], type: SET_USERS });
       }
+
+      await socket.emit("users_list_change", { roomNo, name });
+      await socket.emit("join_room", { roomNo, name });
+      console.log("no returnn");
+      navigate("/shopping");
     } else {
-      dispatch({ value: [], type: SET_SHOPPING_LIST });
-      dispatch({ value: [name], type: SET_USERS });
+      console.log("Error::: ", "Server Down");
+      setAlertMsg(
+        "Server is currently down or under maintanence. Please wait for  some time and try again later."
+      );
+      setAlertType("warning");
+      setShowAlert(true);
     }
-    console.log("no returnn");
-    await socket.emit("users_list_change", { roomNo, name });
-    await socket.emit("join_room", { roomNo, name });
-    dispatch({ type: LOADING_FALSE });
     setName("");
     setRoomNo("");
-    navigate("/shopping");
+    dispatch({ type: LOADING_FALSE });
   };
   return (
     <div className="container">
       {showAlert ? (
-        <Alert type={"danger"} msg={alertMsg} show={showAlert} />
+        <Alert type={alertType} msg={alertMsg} show={showAlert} />
       ) : null}
       <div
         className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
