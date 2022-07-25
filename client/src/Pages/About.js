@@ -2,9 +2,9 @@ import React from "react";
 
 const About = () => {
   return (
-    <div>
+    <div className="container">
       <h1>About</h1>
-      <p>
+      <p className="text-justify">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
         condimentum orci in ante cursus euismod. Cras volutpat malesuada
         aliquam. Morbi condimentum mollis risus nec malesuada. Nam feugiat

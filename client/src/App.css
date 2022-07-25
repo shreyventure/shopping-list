@@ -165,3 +165,7 @@ body {
   transition: opacity 300ms, transform 300ms;
 }
 /* ---- */
+
+.text-justify {
+  text-align: justify;
+}
