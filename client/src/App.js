@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { SET_SOCKET } from "./Shopping-reducers/reducer";
+import About from "./Pages/About";
 
 const socket = io.connect("http://localhost:5000");
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="shopping" element={<Shopping />} />
+        <Route path="about" element={<About />} />
       </Routes>
       <Footer />
     </div>

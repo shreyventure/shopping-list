@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   SET_SHOW_USERS,
   LOADING_FALSE,
@@ -25,7 +26,12 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg text-light opacity-8 py-3 header">
       <div className="container-fluid">
         <span to={"/"} className="decor-none navbar-brand">
-          <span style={{ fontSize: "1.5rem" }}>Shopping List</span>
+          <span style={{ fontSize: "1.5rem" }}>
+            Shopping List{" "}
+            <span className="text-info">
+              {roomNo !== null ? `#${roomNo}` : null}
+            </span>
+          </span>
         </span>
         <button
           className="navbar-toggler"
@@ -44,10 +50,14 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item d-flex align-items-center link-decor">
-              <span className="nav-link mx-2 text-light">About</span>
+              <Link to={"/about"} className="nav-link mx-2 text-light">
+                About
+              </Link>
             </li>
             <li className="nav-item d-flex align-items-center link-decor">
-              <span className="nav-link mx-2 text-light">Contact</span>
+              <Link to={"/contact"} className="nav-link mx-2 text-light">
+                Contact
+              </Link>
             </li>
             {name === "" || name === undefined || name === null ? null : (
               <>

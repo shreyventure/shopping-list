@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import Alert from "../Components/Alert";
+import Checklist from "../Images/Checklist.png";
+
 import {
   LOADING_TRUE,
   LOADING_FALSE,
@@ -83,10 +85,16 @@ const Home = () => {
         <Alert type={alertType} msg={alertMsg} show={showAlert} />
       ) : null}
       <div
-        className="text-center d-flex justify-content-around align-items-center flex-column m-auto"
+        className="text-center d-flex justify-content-around align-items-center m-auto flex-wrap"
         style={{ height: "80vh" }}
       >
-        <form className="form" onSubmit={handleSubmit}>
+        <img
+          className=""
+          src={Checklist}
+          alt="Person holding the shopping list."
+          width={"50%"}
+        ></img>
+        <form className="form p-5" onSubmit={handleSubmit}>
           <div className="form-floating">
             <input
               type="number"
@@ -115,7 +123,7 @@ const Home = () => {
               Enter name
             </label>
           </div>
-          <button type="submit" className="btn btn-success my-3">
+          <button type="submit" className="btn btn-success w-100 my-3">
             {loading === false ? (
               "Submit"
             ) : (
