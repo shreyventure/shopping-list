@@ -85,22 +85,34 @@ const Home = () => {
         <Alert type={alertType} msg={alertMsg} show={showAlert} />
       ) : null}
       <div
-        className="text-center d-flex justify-content-around align-items-center m-auto flex-wrap"
+        className="d-flex justify-content-around align-items-center m-auto flex-wrap"
         style={{ height: "80vh" }}
       >
         <img
-          className=""
+          className="my-3"
           src={Checklist}
           alt="Person holding the shopping list."
           width={"50%"}
         ></img>
         <form className="form p-5" onSubmit={handleSubmit}>
+          <h1 className="">
+            Get access to your <br /> shared list
+          </h1>
+          <p className="pb-2" style={{ fontSize: "small" }}>
+            Create a shopping list or access previously created list. <br />
+            Login right away.
+          </p>
+          <div
+            className="w-50 mb-5"
+            style={{ borderBottom: "2px solid black" }}
+          ></div>
+
           <div className="form-floating">
             <input
               type="number"
               name="roomno"
               id="roomno"
-              className="m-auto form-control outline-none bg-transparent border-bottom-in"
+              className="m-auto form-control outline-none border-bottom-in"
               value={roomNo}
               onChange={(e) => setRoomNo(e.target.value)}
               placeholder="Room Number"
@@ -114,7 +126,7 @@ const Home = () => {
               type="text"
               name="name"
               id="name"
-              className="m-auto form-control bg-transparent outline-none border-bottom-in"
+              className="m-auto form-control outline-none border-bottom-in"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
@@ -123,7 +135,7 @@ const Home = () => {
               Enter name
             </label>
           </div>
-          <button type="submit" className="btn btn-success w-100 my-3">
+          <button type="submit" className="btn btn-purple my-3 w-100">
             {loading === false ? (
               "Submit"
             ) : (

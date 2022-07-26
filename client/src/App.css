@@ -169,3 +169,13 @@ body {
 .text-justify {
   text-align: justify;
 }
+
+.btn-purple {
+  background-color: #1b1626;
+  color: #fcfcfc;
+}
+
+.btn-purple:hover {
+  background-color: #708cd5;
+  color: #f7f7f7;
+}
