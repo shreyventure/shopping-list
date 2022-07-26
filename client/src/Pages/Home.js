@@ -33,18 +33,32 @@ const Home = () => {
     e.preventDefault();
     dispatch({ type: LOADING_TRUE });
 
+    const Name = name.trim();
+    if (Name.length === 0 || roomNo === "") {
+      setAlertType("danger");
+      setAlertMsg(`Please enter all the fields.`);
+      setShowAlert(true);
+      setTimeout(() => {
+        setAlertMsg("");
+        setShowAlert(false);
+      }, 5000);
+      dispatch({ type: LOADING_FALSE });
+
+      return;
+    }
+
     if (socket.connected) {
       const docRef = doc(db, "shopping", roomNo);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const Data = docSnap.data();
-        if (!Data.users.includes(name)) {
+        if (!Data.users.includes(Name)) {
           dispatch({ value: roomNo, type: NEW_ROOM_NO });
-          dispatch({ value: name, type: SET_NAME });
+          dispatch({ value: Name, type: SET_NAME });
           dispatch({ value: Data.newList, type: SET_SHOPPING_LIST });
-          dispatch({ value: [...Data.users, name], type: SET_USERS });
+          dispatch({ value: [...Data.users, Name], type: SET_USERS });
           let new_socket = { ...socket };
-          new_socket.shopping_list_user_name = name;
+          new_socket.shopping_list_user_name = Name;
           dispatch({ value: new_socket, type: SET_SOCKET });
         } else {
           setAlertMsg(
@@ -60,7 +74,7 @@ const Home = () => {
         }
       } else {
         dispatch({ value: [], type: SET_SHOPPING_LIST });
-        dispatch({ value: [name], type: SET_USERS });
+        dispatch({ value: [Name], type: SET_USERS });
       }
 
       await socket.emit("users_list_change", { roomNo, name });
@@ -84,10 +98,7 @@ const Home = () => {
       {showAlert ? (
         <Alert type={alertType} msg={alertMsg} show={showAlert} />
       ) : null}
-      <div
-        className="d-flex justify-content-around align-items-center m-auto flex-wrap"
-        style={{ height: "80vh" }}
-      >
+      <div className="d-flex justify-content-around align-items-center m-auto flex-wrap mt-4">
         <img
           className="my-3"
           src={Checklist}
@@ -95,7 +106,7 @@ const Home = () => {
           width={"50%"}
         ></img>
         <form className="form p-5" onSubmit={handleSubmit}>
-          <h1 className="">
+          <h1 className="playFair">
             Get access to your <br /> shared list
           </h1>
           <p className="pb-2" style={{ fontSize: "small" }}>
@@ -139,7 +150,7 @@ const Home = () => {
             {loading === false ? (
               "Submit"
             ) : (
-              <div className="spinner-border" role="status">
+              <div className="spinner-border spinner-border-sm" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
             )}

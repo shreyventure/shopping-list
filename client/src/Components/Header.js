@@ -26,7 +26,7 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg text-light opacity-8 py-3 header">
       <div className="container-fluid">
         <span to={"/"} className="decor-none navbar-brand">
-          <span style={{ fontSize: "1.5rem" }}>
+          <span className="playFair" style={{ fontSize: "1.5rem" }}>
             Shopping List{" "}
             <span className="text-info">
               {roomNo !== null ? `#${roomNo}` : null}
@@ -80,7 +80,10 @@ const Header = () => {
                       {loading === false ? (
                         "Logout"
                       ) : (
-                        <div className="spinner-border" role="status">
+                        <div
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                        >
                           <span className="visually-hidden">Loading...</span>
                         </div>
                       )}
