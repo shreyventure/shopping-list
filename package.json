@@ -1,0 +1,19 @@
+{
+  "name": "shoppinglist",
+  "version": "1.0.0",
+  "description": "Shopping-List is not an ordinary todo-list. It utilizes crud functionalities to provide creation, deletion, etc. These functionalities, however, are dynamic, nimble and happen in real-time for the users sharing the list, all thanks to socket-io.",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && npm run dev && cd .. && cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shreyventure/shopping-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shreyventure/shopping-list/issues"
+  },
+  "homepage": "https://github.com/shreyventure/shopping-list#readme"
+}

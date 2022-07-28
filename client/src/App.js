@@ -10,7 +10,9 @@ import { SET_SOCKET } from "./Shopping-reducers/reducer";
 import About from "./Pages/About";
 import FourZeroFour from "./Pages/FourZeroFour";
 
-const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("http://localhost:5000"); // for local server
+const socket = io.connect("https://shopping-list-server-1.herokuapp.com/");
+
 function App() {
   const dispatch = useDispatch();
   dispatch({ value: socket, type: SET_SOCKET });
