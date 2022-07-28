@@ -5,7 +5,9 @@
   "main": "",
   "scripts": {
     "client": "cd client && npm start",
-    "server": "cd server && npm run dev"
+    "client-install": "cd client && npm i",
+    "server": "cd server && npm run dev",
+    "server-install": "cd server && npm i"
   },
   "repository": {
     "type": "git",

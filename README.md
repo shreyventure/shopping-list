@@ -27,16 +27,15 @@ The server is built using **node.js** and **socket.io**, and is responsible for 
 The client is the front-end framework built using **react.js** and **socket.io-client**.
 
 - In order to get the project up and running, we need to install dependancies for both server and the client.
-  - `$ cd server`
-  - `$ npm install`
-  - `$ cd ..`
-  - `$ cd client`
-  - `$ npm install`
+  - `$ npm run server-install`
+  - `$ npm run client-install`
+  - `$ npm run server`
+  - `$ npm run client`
 - Set up a new [google cloud](https://console.cloud.google.com/) project
 - Create a new firestore database
-- Download the secret credential file from the console and save it as `firestore.json` in the `server` folder.
+- Download the secret credential json file from the console and save it as `FIRESTORE='[JSON_FILE_CONTENT]'` in a `.env` file.
 
-> <em><strong>Note</strong>: Make sure you add `firestore.json` file in `.gitignore` before committing the project to git.</em>
+> <em><strong>Note</strong>: Make sure you add `.env` file in `.gitignore` before committing the project to git.</em>
 
 ## Contributors ✨
 
