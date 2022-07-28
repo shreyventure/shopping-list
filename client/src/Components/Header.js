@@ -25,14 +25,14 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg text-light opacity-8 py-3 header">
       <div className="container-fluid">
-        <span to={"/"} className="decor-none navbar-brand">
+        <Link to={"/"} className="decor-none navbar-brand link-white">
           <span className="playFair" style={{ fontSize: "1.5rem" }}>
             Shopping List{" "}
             <span className="text-info">
               {roomNo !== null ? `#${roomNo}` : null}
             </span>
           </span>
-        </span>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

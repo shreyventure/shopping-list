@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { getDoc, doc } from "@firebase/firestore";
 import Alert from "../Components/Alert";
@@ -14,6 +14,7 @@ import {
   SET_NAME,
   SET_USERS,
   SET_SOCKET,
+  SET_LOGGED_IN,
 } from "../Shopping-reducers/reducer";
 
 const Home = () => {
@@ -26,6 +27,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const socket = useSelector((state) => state.socket);
   const loading = useSelector((state) => state.loading);
+  const loggedIn = useSelector((state) => state.loggedIn);
 
   const navigate = useNavigate();
 
@@ -79,7 +81,7 @@ const Home = () => {
 
       await socket.emit("users_list_change", { roomNo, name });
       await socket.emit("join_room", { roomNo, name });
-      console.log("no returnn");
+      dispatch({ type: SET_LOGGED_IN, value: true });
       navigate("/shopping");
     } else {
       console.log("Error::: ", "Server Down");
@@ -105,7 +107,7 @@ const Home = () => {
           alt="Person holding the shopping list."
           width={"50%"}
         ></img>
-        <form className="form p-5" onSubmit={handleSubmit}>
+        <div className="p-5">
           <h1 className="playFair">
             Get access to your <br /> shared list
           </h1>
@@ -117,45 +119,55 @@ const Home = () => {
             className="w-50 mb-5"
             style={{ borderBottom: "2px solid black" }}
           ></div>
-
-          <div className="form-floating">
-            <input
-              type="number"
-              name="roomno"
-              id="roomno"
-              className="m-auto form-control outline-none border-bottom-in"
-              value={roomNo}
-              onChange={(e) => setRoomNo(e.target.value)}
-              placeholder="Room Number"
-            />
-            <label htmlFor="roomno" className="text-muted">
-              Enter room number
-            </label>
-          </div>
-          <div className="form-floating my-2">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="m-auto form-control outline-none border-bottom-in"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
-            />
-            <label htmlFor="roomno" className="text-muted">
-              Enter name
-            </label>
-          </div>
-          <button type="submit" className="btn btn-purple my-3 w-100">
-            {loading === false ? (
-              "Submit"
-            ) : (
-              <div className="spinner-border spinner-border-sm" role="status">
-                <span className="visually-hidden">Loading...</span>
+          {!loggedIn ? (
+            <form className="form" onSubmit={handleSubmit}>
+              <div className="form-floating">
+                <input
+                  type="number"
+                  name="roomno"
+                  id="roomno"
+                  className="m-auto form-control outline-none border-bottom-in"
+                  value={roomNo}
+                  onChange={(e) => setRoomNo(e.target.value)}
+                  placeholder="Room Number"
+                />
+                <label htmlFor="roomno" className="text-muted">
+                  Enter room number
+                </label>
               </div>
-            )}
-          </button>
-        </form>
+              <div className="form-floating my-2">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="m-auto form-control outline-none border-bottom-in"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name"
+                />
+                <label htmlFor="roomno" className="text-muted">
+                  Enter name
+                </label>
+              </div>
+              <button type="submit" className="btn btn-purple my-3 w-100">
+                {loading === false ? (
+                  "Submit"
+                ) : (
+                  <div
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                )}
+              </button>
+            </form>
+          ) : (
+            <Link to={"/shopping"} className="btn btn-success">
+              Head to your shopping list <span>➡️</span>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

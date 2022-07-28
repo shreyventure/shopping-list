@@ -1,4 +1,5 @@
 const initialState = {
+  loggedIn: false,
   socket: null,
   loading: false,
   roomNo: null,
@@ -17,6 +18,7 @@ export const SET_NAME = "SET_NAME";
 export const LOGOUT = "LOGOUT";
 export const SET_USERS = "SET_USERS";
 export const SET_SHOW_USERS = "SET_SHOW_USERS";
+export const SET_LOGGED_IN = "SET_LOGGED_IN";
 
 export const shoppingReducer = function (state = initialState, action) {
   switch (action.type) {
@@ -36,6 +38,8 @@ export const shoppingReducer = function (state = initialState, action) {
       return { ...state, users: action.value };
     case SET_SHOW_USERS:
       return { ...state, showUsers: action.value };
+    case SET_LOGGED_IN:
+      return { ...state, loggedIn: action.value };
     case LOGOUT:
       return { ...initialState };
     default:

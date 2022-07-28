@@ -53,6 +53,15 @@ body {
   text-decoration: none;
 }
 
+.link-white {
+  color: white;
+}
+
+.link-white:hover {
+  color: white;
+  opacity: 0.7;
+}
+
 .link-decor {
   text-decoration: none;
   cursor: pointer;
@@ -180,8 +189,8 @@ body {
 }
 
 .btn-purple:hover {
-  background-color: #708cd5;
-  color: #f7f7f7;
+  color: #fcfcfc;
+  opacity: 0.9;
 }
 
 .playFair {
