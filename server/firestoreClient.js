@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("./firestore.json");
+require("dotenv").config();
+const serviceAccount = JSON.parse(process.env.FIRESTORE);
 const {
   getFirestore,
   Timestamp,

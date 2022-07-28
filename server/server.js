@@ -3,8 +3,9 @@ const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const PORT = process.env.PORT || 5000;
+require("dotenv").config();
 
+const PORT = process.env.PORT || 5000;
 const firestoreClient = require("./firestoreClient");
 
 app.use(cors());
