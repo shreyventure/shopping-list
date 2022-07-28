@@ -1,0 +1,3 @@
+[submodule "shopping-list-server"]
+	path = shopping-list-server
+	url = https://github.com/shreyventure/shopping-list-server.git
