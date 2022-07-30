@@ -106,6 +106,7 @@ const Home = () => {
           src={Checklist}
           alt="Person holding the shopping list."
           width={"50%"}
+          loading="lazy"
         ></img>
         <div className="p-5">
           <h1 className="playFair">
