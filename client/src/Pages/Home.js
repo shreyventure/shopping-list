@@ -16,6 +16,7 @@ import {
   SET_SOCKET,
   SET_LOGGED_IN,
 } from "../Shopping-reducers/reducer";
+import Hr50 from "../Components/Hr50";
 
 const Home = () => {
   const [roomNo, setRoomNo] = useState("");
@@ -116,10 +117,7 @@ const Home = () => {
             Create a shopping list or access previously created list. <br />
             Login right away.
           </p>
-          <div
-            className="w-50 mb-5"
-            style={{ borderBottom: "2px solid black" }}
-          ></div>
+          <Hr50 />
           {!loggedIn ? (
             <form className="form" onSubmit={handleSubmit}>
               <div className="form-floating">

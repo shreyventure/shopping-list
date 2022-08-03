@@ -1,9 +1,11 @@
 import React from "react";
+import Hr50 from "../Components/Hr50";
 
 const About = () => {
   return (
     <div className="container">
-      <h1>About</h1>
+      <h1 className="playFair">About</h1>
+      <Hr50 />
       <p className="text-justify">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
         condimentum orci in ante cursus euismod. Cras volutpat malesuada
